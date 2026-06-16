@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- 카카오톡/문자 링크 공유 시 나타나는 정보 (오픈 그래프) -->
+  <meta property="og:title" content="바울교회 수련회 플래너" />
+  <meta property="og:description" content="주제: 한 걸음 더 가까이 (일정 및 안내)" />
+  <!-- 대부도 바닷가 감성의 고화질 썸네일 이미지 -->
+  <meta property="og:image" content="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" />
+  <meta property="og:url" content="https://kyoungle.github.io/daebudo/" />
+  <meta property="og:type" content="website" />
+
+  <title>바울교회 수련회 - 한 걸음 더 가까이</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+    :root {
+      --bg-light: #f8fafc;       
+      --white: #ffffff;
+      /* 대부도 바다와 청량한 여름 수련회 감성의 블루&에메랄드 팔레트 */
+      --primary-bg: #e0f2fe;   
+      --primary-text: #0369a1; 
+      --secondary-bg: #ccfbf1; 
+      --secondary-text: #0f766e; 
+      --notice-bg: #fef2f2;       
+      --notice-text: #b91c1c;     
+      --accent-bg: #fef9c3;       
+      --accent-text: #a16207;     
+      --text-dark: #0f172a;      
+      --text-gray: #475569;      
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 12px 30px -10px rgba(0, 0, 0, 0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── HERO SECTION ── */
+    .hero {
+      background: var(--white);
+      padding: 80px 24px 50px;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-text);
+      background: var(--primary-bg);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      font-weight: 600;
+      color: var(--primary-text);
+      margin-bottom: 24px;
+    }
+
+    .hero-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      margin-bottom: 32px;
+    }
+
+    /* ── D-DAY COUNTDOWN ── */
+    .countdown-container {
+      max-width: 480px;
+      margin: 0 auto 36px;
+      background: #0f172a; 
+      padding: 24px;
+      border-radius: 24px;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15);
+    }
+
+    .countdown-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .countdown-board { display: flex; justify-content: center; align-items: center; gap: 10px; }
+
+    .cd-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      width: 72px;
+      padding: 12px 0;
+    }
+
+    .cd-num { font-family: 'Inter', sans-serif; font-size: 1.8rem; font-weight: 800; color: #ffffff; line-height: 1.2; }
+    .cd-unit { font-size: 11px; font-weight: 600; color: #94a3b8; margin-top: 4px; }
+    .countdown-message { display: none; font-size: 0.95rem; font-weight: 700; color: #38bdf8; line-height: 1.5; }
+
+    /* ── TRACK NAVIGATION ── */
+    .track-nav {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .nav-btn {
+      flex: 1;
+      text-decoration: none;
+      padding: 18px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+    }
+
+    .btn-day1 { background: var(--primary-bg); }
+    .btn-day1 .day-label { font-size: 11px; font-weight: 800; color: var(--primary-text); margin-bottom: 4px; display: block; }
+    .btn-day1 .day-val { font-size: 1.1rem; font-weight: 800; color: var(--primary-text); }
+
+    .btn-day2 { background: var(--secondary-bg); }
+    .btn-day2 .day-label { font-size: 11px; font-weight: 800; color: var(--secondary-text); margin-bottom: 4px; display: block; }
+    .btn-day2 .day-val { font-size: 1.1rem; font-weight: 800; color: var(--secondary-text); }
+
+    /* ── SECTION HEADER ── */
+    .section-header { padding: 80px 24px 32px; text-align: center; max-width: 800px; margin: 0 auto; }
+    .day-tag { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 6px; display: inline-block; margin-bottom: 16px; }
+    #day1 .day-tag { background: var(--primary-bg); color: var(--primary-text); }
+    #day2 .day-tag { background: var(--secondary-bg); color: var(--secondary-text); }
+    .day-date-big { font-size: 2rem; font-weight: 900; color: var(--text-dark); margin-bottom: 8px; display: block; }
+    .day-subtitle { font-size: 1rem; font-weight: 500; color: var(--text-gray); }
+
+    /* ── TIMELINE ── */
+    .timeline { max-width: 800px; margin: 0 auto; padding: 0 24px 20px; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 104px; top: 0; bottom: 0; width: 1px; background: #cbd5e1; }
+    .timeline-item { display: flex; gap: 24px; margin-bottom: 18px; }
+    .tl-time { min-width: 80px; text-align: right; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text-dark); padding-top: 22px; }
+    .tl-dot-wrap { display: flex; align-items: flex-start; padding-top: 26px; position: relative; z-index: 1; }
+    .tl-dot { width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; border: 2px solid var(--bg-light); margin-left: -3px; }
+    .tl-card { flex: 1; background: var(--white); padding: 22px 26px; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm); cursor: pointer; transition: all 0.25s ease; }
+    .tl-card:hover { transform: translateX(4px); box-shadow: var(--shadow-md); }
+    #day1 .tl-card { border-left: 4px solid #bae6fd; }
+    #day2 .tl-card { border-left: 4px solid #99f6e4; }
+    .tl-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .tl-card-title { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); }
+    .badge { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 6px; background: #f1f5f9; color: var(--text-gray); border: 1px solid #e2e8f0; }
+    .tl-card-body { font-size: 0.9rem; color: var(--text-gray); }
+
+    /* ── ACCOMMODATION ── */
+    .accommodation-section { max-width: 800px; margin: 0 auto; padding: 40px 24px 40px; }
+    .accom-card { background: var(--accent-bg); border: 1px solid #fef08a; padding: 40px 24px; text-align: center; border-radius: 28px; box-shadow: var(--shadow-md); transition: all 0.25s ease; cursor: pointer; }
+    .accom-card:hover { transform: translateY(-2px); }
+    .accom-card h3 { font-size: 1.5rem; font-weight: 900; color: #713f12; margin-bottom: 6px; }
+    .accom-card p.sub { font-size: 1rem; font-weight: 600; color: var(--accent-text); margin-bottom: 16px; }
+    .accom-card p.desc { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5; }
+    .accom-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--white); color: #713f12; padding: 10px 24px; border-radius: 100px; font-weight: 700; font-size: 13px; border: 1px solid #fef08a; }
+
+    /* ── PEOPLE SECTION ── */
+    .people-section { max-width: 800px; margin: 0 auto; padding: 40px 24px 60px; }
+    .people-title { font-size: 1.4rem; font-weight: 900; text-align: center; margin-bottom: 24px; color: var(--text-dark); }
+    .people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+    .person-badge { background: var(--white); padding: 14px; border-radius: 16px; text-align: center; font-size: 0.95rem; font-weight: 700; color: var(--text-dark); border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm); }
+    .person-badge i { color: var(--primary-text); margin-right: 4px; }
+
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 50px 24px; background: var(--white); border-top: 1px solid #e2e8f0; font-size: 13px; font-weight: 600; color: #94a3b8; }
+
+    /* ── MODAL ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(6px); z-index: 1000; align-items: center; justify-content: center; padding: 24px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--white); width: 100%; max-width: 460px; border-radius: 28px; padding: 36px; position: relative; box-shadow: 0 25px 60px -15px rgba(0,0,0,0.2); }
+    .modal-close { position: absolute; top: 24px; right: 24px; border: none; background: #f1f5f9; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: var(--text-gray); display: flex; align-items: center; justify-content: center; }
+
+    @media (max-width: 520px) {
+      .timeline::before { left: 24px; }
+      .tl-time { min-width: auto; text-align: left; padding-left: 45px; position: absolute; padding-top: 0; font-size: 0.8rem; color: var(--text-gray); }
+      .tl-dot-wrap { position: absolute; left: 22px; }
+      .tl-card { margin-top: 25px; margin-left: 12px; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-badge">바울교회 전교인 수련회</div>
+  <h1 class="hero-title">한 걸음 더 가까이</h1>
+  <p class="hero-subtitle">“하나님께 더 가까이, 성도들끼리 더 가까이”</p>
+  <p class="hero-date">2026 . 06 . 21 (주일) — 06 . 22 (월)</p>
+
+  <!-- 실시간 디데이 카운트다운 보드 -->
+  <div class="countdown-container">
+    <div class="countdown-title" id="cd-title">수련회 출발까지 남은 시간</div>
+    <div class="countdown-board" id="cd-board">
+      <div class="cd-box"><span class="cd-num" id="days">00</span><span class="cd-unit">일</span></div>
+      <div class="cd-box"><span class="cd-num" id="hours">00</span><span class="cd-unit">시간</span></div>
+      <div class="cd-box"><span class="cd-num" id="minutes">00</span><span class="cd-unit">분</span></div>
+      <div class="cd-box"><span class="cd-num" id="seconds">00</span><span class="cd-unit">초</span></div>
+    </div>
+    <div class="countdown-message" id="cd-msg">✨ 은혜와 기쁨이 넘치는 수련회가 시작되었습니다!</div>
+  </div>
+
+  <nav class="track-nav">
+    <a href="#day1" class="nav-btn btn-day1">
+      <span class="day-label">DAY 01</span>
+      <span class="day-val">6월 21일 (일)</span>
+    </a>
+    <a href="#day2" class="nav-btn btn-day2">
+      <span class="day-label">DAY 02</span>
+      <span class="day-val">6월 22일 (월)</span>
+    </a>
+  </nav>
+</header>
+
+<!-- 첫째 날 일정 -->
+<section id="day1">
+  <div class="section-header">
+    <span class="day-tag">DAY 01</span>
+    <h2 class="day-date-big">6월 21일 (주일)</h2>
+    <p class="day-subtitle">마음의 문을 열고 주님과 공동체 안으로 들어가는 시간</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="tl-time">14:00</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('arrival')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">수련회 장소 집결 및 도착</span>
+          <span class="badge">모임</span>
+        </div>
+        <div class="tl-card-body">대부도 그린데이펜션 도착 및 반가운 인사</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-time">15:00</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('opening')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">도착예배 & 오리엔테이션</span>
+          <span class="badge">예배</span>
+        </div>
+        <div class="tl-card-body">개회 예배 및 전체 안내, 아이스브레이킹 팀 구성</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-time">15:40</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('ready')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">짐 정리 및 야외 집합</span>
+          <span class="badge">준비</span>
+        </div>
+        <div class="tl-card-body">배정된 방에 짐 풀기 및 물놀이 복장으로 환복 후 집합</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-time">16:00</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('water')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">팀 대항 물놀이 레크리에이션</span>
+          <span class="badge">친교</span>
+        </div>
+        <div class="tl-card-body">시원한 수영장에서 하나 되는 다채로운 게임 프로그램</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-time">18:00</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('bbq')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">바비큐 파티 및 뒷정리</span>
+          <span class="badge">식사</span>
+        </div>
+        <div class="tl-card-body">맛있는 고기 만찬과 함께 깊어가는 친교의 대화</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-time">20:00</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('oneteam')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">우리는 한 팀 (저녁 프로그램)</span>
+          <span class="badge">은혜</span>
+        </div>
+        <div class="tl-card-body">공동체성을 다지고 주님 안에서 하나 됨을 확인하는 시간</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-time">23:00</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('talk')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">서로에게 한 마디</span>
+          <span class="badge">나눔</span>
+        </div>
+        <div class="tl-card-body">하루를 돌아보며 격려와 사랑의 고백을 나누는 시간 (24:00까지)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 장소 정보 안내 -->
+<div class="accommodation-section">
+  <div class="accom-card" onclick="openModal('pension')">
+    <h3>🏡 숙소 및 장소 안내</h3>
+    <p class="sub">대부도 그린데이펜션</p>
+    <p class="desc">📍 주소: 경기 안산시 단원구 부흥로 287-119<br>상세 편의시설 및 홈페이지 링크를 확인하려면 클릭하세요.</p>
+    <div class="accom-btn">
+      <i class="fa-solid fa-map-location-dot"></i> 펜션 상세 정보 보기
+    </div>
+  </div>
+</div>
+
+<!-- 둘째 날 일정 -->
+<section id="day2">
+  <div class="section-header">
+    <span class="day-tag">DAY 02</span>
+    <h2 class="day-date-big">6월 22일 (월)</h2>
+    <p class="day-subtitle">하루의 첫 시간을 주님께 드리며 세상으로 파송되는 시간</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="tl-time">05:30</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('morning')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">새벽기도회</span>
+          <span class="badge">예배</span>
+        </div>
+        <div class="tl-card-body">고요한 아침, 말씀을 묵상하고 뜨겁게 기도하는 은혜의 축복</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="tl-time">06:00</div>
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-card" onclick="openModal('breakfast')">
+        <div class="tl-card-header">
+          <span class="tl-card-title">아침 식사 및 해산/귀가</span>
+          <span class="badge">종료</span>
+        </div>
+        <div class="tl-card-body">정성 어린 아침 식사 후 정리정돈 및 무사히 귀가길로 출발</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 참가자 섹션 -->
+<section class="people-section">
+  <h2 class="people-title">👥 함께하는 분들 (9명)</h2>
+  <div class="people-grid">
+    <div class="person-badge"><i class="fa-solid fa-user-tie"></i> 이경래 목사</div>
+    <div class="person-badge"><i class="fa-solid fa-user-heart"></i> 황현실 사모</div>
+    <div class="person-badge"><i class="fa-solid fa-user-check"></i> 홍성문 장로</div>
+    <div class="person-badge"><i class="fa-solid fa-user-bookmark"></i> 황은실 권사</div>
+    <div class="person-badge"><i class="fa-solid fa-user"></i> 홍요셉</div>
+    <div class="person-badge"><i class="fa-solid fa-user"></i> 이바울</div>
+    <div class="person-badge"><i class="fa-solid fa-user"></i> 홍예진</div>
+    <div class="person-badge"><i class="fa-solid fa-user"></i> 주현성</div>
+    <div class="person-badge"><i class="fa-solid fa-user"></i> 주아란</div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 바울교회 수련회 플래너. ALL RIGHTS RESERVED.</p>
+</footer>
+
+<!-- 안내 모달 창 공통 레이아웃 -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalDirect()"><i class="fa-solid fa-xmark"></i></button>
+    <div id="modal-day" class="day-tag" style="margin-bottom:8px">DAY 01</div>
+    <h2 id="modal-title" style="font-size:1.35rem; font-weight:800; text-align:left; margin-bottom:12px">제목</h2>
+    <p id="modal-time" style="color:var(--primary-text); font-weight:700; margin-bottom:18px; font-size:0.9rem">시간</p>
+    <div id="modal-body" class="tl-card-body" style="line-height:1.7;">상세 데이터</div>
+  </div>
+</div>
+
+<script>
+  // 디데이 설정 타겟 시간 (2026년 6월 21일 14시)
+  const targetDate = new Date("2026-06-21T14:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+    const cdBoard = document.getElementById("cd-board");
+    const cdTitle = document.getElementById("cd-title");
+    const cdMsg = document.getElementById("cd-msg");
+
+    if (difference <= 0) {
+      clearInterval(timerInterval);
+      cdBoard.style.display = "none";
+      cdTitle.style.display = "none";
+      cdMsg.style.display = "block";
+      return;
+    }
+
+    const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+    document.getElementById("days").textContent = String(d).padStart(2, '0');
+    document.getElementById("hours").textContent = String(h).padStart(2, '0');
+    document.getElementById("minutes").textContent = String(m).padStart(2, '0');
+    document.getElementById("seconds").textContent = String(s).padStart(2, '0');
+  }
+
+  const timerInterval = setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // 각 스케줄 팝업 내용 세부 기입
+  const DATA = {
+    arrival:   { day:'DAY 01', title:'📍 그린데이펜션 집결 및 입실', time:'14:00 – 15:00', body:`• 주소로 개별 및 카풀 이동하여 펜션 마당에서 집결합니다.<br>• 배정된 방을 확인하고 가벼운 인사를 나눕니다.` },
+    opening:   { day:'DAY 01', title:'🙏 도착예배 & 오리엔테이션', time:'15:00 – 15:40', body:`• 수련회의 문을 여는 감사 개회 예배를 드립니다.<br>• 이번 수련회 일정 전체 오리엔테이션 및 아이스브레이킹을 통한 팀 구성을 진행합니다.` },
+    ready:     { day:'DAY 01', title:'🎒 짐 정리 및 야외 집합', time:'15:40 – 16:00', body:`• 방별로 물놀이 복장 및 개인 짐을 정리합니다.<br>• 선크림을 꼼꼼히 바른 후 펜션 수영장 앞으로 정시 집합합니다.` },
+    water:     { day:'DAY 01', title:'🌊 팀 대항 흥미진진 물놀이', time:'16:00 – 18:00', body:`• 청량한 수영장에서 펼쳐지는 역동적인 팀별 수중 레크리에이션!<br>• 서로 배려하며 안전하게 협동심을 기르는 메인 게임들이 준비되어 있습니다.` },
+    bbq:       { day:'DAY 01', title:'🍖 바비큐 파티 및 저녁식사', time:'18:00 – 20:00', body:`• 수련회의 꽃! 맛있는 숯불 고기 파티 시간입니다.<br>• 정성껏 준비한 음식들을 함께 들며 식탁의 교제를 나누고 함께 깨끗하게 뒷정리를 마칩니다.` },
+    oneteam:   { day:'DAY 01', title:'✨ 은혜의 밤: 우리는 한 팀', time:'20:00 – 23:00', body:`• 실내 메인 홀에 모여 진행되는 저녁 집중 공동체 프로그램입니다.<br>• 서로를 더 깊이 알아가고 영성과 신뢰를 견고히 세우는 레크리에이션 및 나눔이 펼쳐집니다.` },
+    talk:      { day:'DAY 01', title:'💬 마음을 전하는 서로에게 한 마디', time:'23:00 – 24:00', body:`• 촛불 아래 평소 표현하지 못했던 격려와 축복의 메시지를 교환합니다.<br>• 주님 안에서 동역자 됨을 감사하며 하루를 따뜻하게 매듭짓습니다.` },
+    pension:   { day:'DAY 01', title:'🏡 대부도 그린데이펜션 상세 정보', time:'체크인 14:00 / 체크아웃 익일 11:00', body:`<b>📍 주소 안내</b><br>경기 안산시 단원구 부흥로 287-119 (그린데이펜션)<br><br><b>💡 주요 시설</b><br>수영장, 바비큐장, 넓은 실내 거실 및 홀 완비<br><br><a href="https://greendaypension.com/28" target="_blank" style="display:inline-block; margin-top:12px; color:#0284c7; font-weight:700; text-decoration:underline;">👉 공식 홈페이지 방문하기</a>` },
+    morning:   { day:'DAY 02', title:'🌅 은혜의 아침을 여는 새벽기도회', time:'05:30 – 06:00', body:`• 수련회 둘째 날, 하루의 첫 시간을 거룩하게 구별하여 드립니다.<br>• 뜨거운 기도와 말씀 묵상을 통해 공동체와 가정을 위한 축복을 구하는 시간입니다.` },
+    breakfast: { day:'DAY 02', title:'🍛 정갈한 아침 식사 및 귀가', time:'06:00~', body:`• 준비된 식사를 맛있게 나누고, 머물렀던 방과 시설을 깨끗이 정리 정돈합니다.<br>• 은혜를 마음에 품고 세상 속으로 파송되어 무사히 안전 귀가합니다.` }
+  };
+
+  function openModal(key) {
+    const d = DATA[key]; if(!d) return;
+    const isDay1 = ['arrival','opening','ready','water','bbq','oneteam','talk','pension'].includes(key);
+    
+    if(isDay1) {
+      document.getElementById('modal-day').textContent = 'DAY 01';
+      document.getElementById('modal-day').style.background = 'var(--primary-bg)';
+      document.getElementById('modal-day').style.color = 'var(--primary-text)';
+      document.getElementById('modal-time').style.color = 'var(--primary-text)';
+    } else {
+      document.getElementById('modal-day').textContent = 'DAY 02';
+      document.getElementById('modal-day').style.background = 'var(--secondary-bg)';
+      document.getElementById('modal-day').style.color = 'var(--secondary-text)';
+      document.getElementById('modal-time').style.color = 'var(--secondary-text)';
+    }
+    document.getElementById('modal-title').textContent = d.title;
+    document.getElementById('modal-time').textContent = d.time;
+    document.getElementById('modal-body').innerHTML = d.body;
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModalDirect() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+  }
+</script>
+</body>
+</html>
